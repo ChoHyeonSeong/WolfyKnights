@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Vector2 InputVec { get; private set; }
+
     [SerializeField]
     private VariableJoystick _joystick;
-    private Vector2 _inputVec;
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriter;
@@ -21,21 +22,21 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        _inputVec = new Vector2(_joystick.Horizontal, _joystick.Vertical);
+        InputVec = new Vector2(_joystick.Horizontal, _joystick.Vertical);
     }
 
     private void FixedUpdate()
     {
-        Vector2 nextVec = _inputVec.normalized * _moveSpeed * Time.fixedDeltaTime;
+        Vector2 nextVec = InputVec.normalized * _moveSpeed * Time.fixedDeltaTime;
         _rigidbody.MovePosition(_rigidbody.position + nextVec);
     }
 
     private void LateUpdate()
     {
-        _animator.SetFloat("Speed", _inputVec.sqrMagnitude);
-        if(_inputVec.x !=0)
+        _animator.SetFloat("Speed", InputVec.sqrMagnitude > 0 ? 1 : 0);
+        if (InputVec.x !=0)
         {
-            _spriter.flipX = _inputVec.x < 0;
+            _spriter.flipX = InputVec.x < 0;
         }
     }
 }
