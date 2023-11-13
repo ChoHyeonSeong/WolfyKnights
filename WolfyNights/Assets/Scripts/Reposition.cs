@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfinityGround : MonoBehaviour
+public class Reposition : MonoBehaviour
 {
+    Collider2D _coll;
+
+    private void Awake()
+    {
+        _coll = GetComponent<Collider2D>();
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Area"))
@@ -35,7 +42,10 @@ public class InfinityGround : MonoBehaviour
                 }
                 break;
             case "Enemy":
-
+                if (_coll.enabled)
+                {
+                    transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f)));
+                }
                 break;
         }
     }
