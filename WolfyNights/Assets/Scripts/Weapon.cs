@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
     {
         for(int i = 0;i < Count; i++)
         {
-            Transform bullet = GameManager.Instance.Pool.Create(1).transform;
+            Transform bullet = GameManager.Instance.Pool.CreateEnemy(1).transform;
             bullet.parent = transform;
 
             Vector3 rotVec = Vector3.forward * 360 * i / Count;

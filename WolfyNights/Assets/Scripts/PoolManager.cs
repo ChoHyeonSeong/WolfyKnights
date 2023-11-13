@@ -4,45 +4,48 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    public GameObject[] _prefabs;
+    private GameObject[] _enemyPrefabs;
 
-    private Queue<GameObject>[] _pools;
+    private Queue<GameObject>[] _enemyPools;
 
-    public GameObject Create(int index, Vector3 position)
+    private Queue<GameObject>[] _itemPools; 
+
+    public GameObject CreateEnemy(int index, Vector3 position)
     {
         GameObject obj;
-        if (_pools[index].Count > 0)
+        if (_enemyPools[index].Count > 0)
         {
-            obj = _pools[index].Dequeue();
+            obj = _enemyPools[index].Dequeue();
             obj.transform.position = position;
             obj.SetActive(true);
         }
         else
         {
-            obj = Instantiate(_prefabs[index], position, Quaternion.identity, transform);
+            obj = Instantiate(_enemyPrefabs[index], position, Quaternion.identity, transform);
         }
         return obj;
     }
 
-    public GameObject Create(int index)
+    public GameObject CreateEnemy(int index)
     {
-        return Create(index, Vector3.zero);
+        return CreateEnemy(index, Vector3.zero);
     }
 
-    public void Destroy(GameObject enemy, int index)
+    public void DestroyEnemy(GameObject enemy, int index)
     {
         enemy.SetActive(false);
-        _pools[index].Enqueue(enemy);
+        _enemyPools[index].Enqueue(enemy);
     }
 
 
     private void Awake()
     {
-        _pools = new Queue<GameObject>[_prefabs.Length];
+        _enemyPrefabs = Resources.LoadAll<GameObject>("Prefabs/Enemy");
+        _enemyPools = new Queue<GameObject>[_enemyPrefabs.Length];
 
-        for (int i = 0; i < _pools.Length; i++)
+        for (int i = 0; i < _enemyPools.Length; i++)
         {
-            _pools[i] = new Queue<GameObject>();
+            _enemyPools[i] = new Queue<GameObject>();
         }
     }
 }

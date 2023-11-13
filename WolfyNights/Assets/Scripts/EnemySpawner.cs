@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
     {
         Vector3 spawnPos = (Random.insideUnitCircle.normalized * 6);
         spawnPos += GameManager.Instance.Player.transform.position;
-        GameManager.Instance.Pool.Create(0, spawnPos).GetComponent<Enemy>().Init(SpawnDatas[_level]);
+        GameManager.Instance.Pool.CreateEnemy(0, spawnPos).GetComponent<Enemy>().Init(SpawnDatas[_level]);
     }
 }
 

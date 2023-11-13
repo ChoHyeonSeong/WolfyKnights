@@ -81,6 +81,6 @@ public class Enemy : MonoBehaviour
     private void Dead()
     {
         gameObject.SetActive(false);
-        GameManager.Instance.Pool.Destroy(gameObject, 0);
+        GameManager.Instance.Pool.DestroyEnemy(gameObject, 0);
     }
 }
