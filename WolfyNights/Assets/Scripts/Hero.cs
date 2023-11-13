@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Hero : MonoBehaviour
 {
     public Vector2 InputVec { get; private set; }
+    public Rigidbody2D Rigid { get; private set; }
 
     [SerializeField]
     private VariableJoystick _joystick;
 
-    private Rigidbody2D _rigidbody;
     private SpriteRenderer _spriter;
     private Animator _animator;
-    private float _moveSpeed = 1;
+    private float _moveSpeed = 2;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        Rigid = GetComponent<Rigidbody2D>();
         _spriter = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 nextVec = InputVec.normalized * _moveSpeed * Time.fixedDeltaTime;
-        _rigidbody.MovePosition(_rigidbody.position + nextVec);
+        Rigid.MovePosition(Rigid.position + nextVec);
     }
 
     private void LateUpdate()
