@@ -11,8 +11,6 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _targetRigid;
     private SpriteRenderer _spriter;
     private Animator _animator;
-    [SerializeField]
-    private RuntimeAnimatorController[] _animCon;
     private float health;
     private float maxHealth;
 
@@ -37,11 +35,12 @@ public class Enemy : MonoBehaviour
         _isLive = false;
     }
 
-    public void Init(SpawnData data)
+    public void Init(int index)
     {
+        /*
         maxHealth = data.Health;
         _moveSpeed = data.Speed;
-        _animator.runtimeAnimatorController = _animCon[data.SpriteType];
+        _animator.runtimeAnimatorController = AnimManager.EnemyAnimCons[data.SpriteType];*/
     }
 
     private void FixedUpdate()
@@ -63,12 +62,18 @@ public class Enemy : MonoBehaviour
         _spriter.flipX = _targetRigid.position.x < _rigid.position.x;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+
+    private void Dead()
     {
-        if (!collision.CompareTag("Bullet"))
-            return;
-        health -= collision.GetComponent<Sword>().damage;
-        if(health > 0)
+        gameObject.SetActive(false);
+        GameManager.Instance.Pool.Enemy.DestroyEnemy(this);
+    }
+
+    public void Hit(int damage)
+    {
+        health -= damage;
+        if (health > 0)
         {
 
         }
@@ -77,10 +82,13 @@ public class Enemy : MonoBehaviour
             Dead();
         }
     }
+}
 
-    private void Dead()
-    {
-        gameObject.SetActive(false);
-        GameManager.Instance.Pool.DestroyEnemy(gameObject, 0);
-    }
+
+public class EnemyData
+{
+    public int Id;
+    public int ResourceId;
+    public int Health;
+    public float MoveSpeed;
 }
