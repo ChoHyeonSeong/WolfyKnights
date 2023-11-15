@@ -10,17 +10,9 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyLevel;
     private List<int> _levelUpCount;
 
-    public StageData[] SpawnDatas;
-
-    // Start is called before the first frame update
-    private void Start()
+    public void SpawnStart(int id)
     {
-        SpawnStart(0);
-    }
-
-    private void SpawnStart(int id)
-    {
-        StageData data = SpawnDatas[id];
+        StageData data = DataManager.StageDict[id];
         _enemyLevel = 0;
         _enemyCount = 0;
         _levelUpCount = new List<int>() { data.EnemyCounts[0] };
@@ -35,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds((_levelUpCount[_enemyLevel] - _enemyCount) / (float)_levelUpCount[_enemyLevel]);
 
-        Vector3 spawnPos = (Random.insideUnitCircle.normalized * 6);
+        Vector3 spawnPos = (Random.insideUnitCircle.normalized * 12);
         spawnPos += GameManager.Instance.Player.transform.position;
         GameManager.Instance.Pool.Enemy.CreateEnemy(spawnPos).Init(data.EnemyIds[_enemyLevel]);
         _enemyCount++;

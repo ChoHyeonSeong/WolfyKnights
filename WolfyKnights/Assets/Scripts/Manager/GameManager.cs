@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public PoolManager Pool { get; private set; }
     public Hero Player;
+    public EnemySpawner Spawner;
 
     public float MaxGameTime = 2 * 10f;
 
@@ -17,5 +18,11 @@ public class GameManager : MonoBehaviour
         AnimManager.LoadAnimCon();
         DataManager.LoadData();
         Pool.LoadPool();
+    }
+
+    private void Start()
+    {
+        Spawner.SpawnStart(0);
+        Player.Init(DataManager.HeroDict[0]);
     }
 }

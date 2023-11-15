@@ -12,7 +12,7 @@ public class PlayerJoystick : MonoBehaviour
 
     private void Awake()
     {
-        _joystick = GetComponent<VariableJoystick>();
+        _joystick = GetComponentInChildren<VariableJoystick>();
 
         _inputVec = new Vector2();
     }

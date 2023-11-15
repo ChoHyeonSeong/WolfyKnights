@@ -9,7 +9,7 @@ public static class AnimManager
 
     public static void LoadAnimCon()
     {
-        EnemyAnimCons = Resources.LoadAll<RuntimeAnimatorController>("Resources/Animations/Enemy");
-        HeroAnimCons = Resources.LoadAll<RuntimeAnimatorController>("Resources/Animations/Hero");
+        EnemyAnimCons = Resources.LoadAll<RuntimeAnimatorController>("Animations/Enemy");
+        HeroAnimCons = Resources.LoadAll<RuntimeAnimatorController>("Animations/Hero");
     }
 }

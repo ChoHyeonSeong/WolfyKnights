@@ -8,7 +8,7 @@ public class CameraResolution : MonoBehaviour
     { 
         var camera = GetComponent<Camera>(); 
         var r = camera.rect; 
-        var scaleheight = ((float)Screen.width / Screen.height) / (9f / 16f); 
+        var scaleheight = ((float)Screen.width / Screen.height) / (16f / 9f); 
         var scalewidth = 1f / scaleheight; 
         if (scaleheight < 1f) 
         {

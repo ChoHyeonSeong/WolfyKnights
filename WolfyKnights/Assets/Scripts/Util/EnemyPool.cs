@@ -7,7 +7,7 @@ public class EnemyPool : MonoBehaviour
     [SerializeField]
     private Enemy _enemyPrefab;
 
-    private Queue<Enemy> _enemyPool;
+    private Queue<Enemy> _enemyPool = new Queue<Enemy>();
 
 
     public Enemy CreateEnemy(Vector3 position)

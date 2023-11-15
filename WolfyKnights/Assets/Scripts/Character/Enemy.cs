@@ -35,12 +35,12 @@ public class Enemy : MonoBehaviour
         _isLive = false;
     }
 
-    public void Init(int index)
+    public void Init(int id)
     {
-        /*
+        EnemyData data = DataManager.EnemyDict[id];
         maxHealth = data.Health;
-        _moveSpeed = data.Speed;
-        _animator.runtimeAnimatorController = AnimManager.EnemyAnimCons[data.SpriteType];*/
+        _moveSpeed = data.MoveSpeed;
+        _animator.runtimeAnimatorController = AnimManager.EnemyAnimCons[data.ResourceId];
     }
 
     private void FixedUpdate()
