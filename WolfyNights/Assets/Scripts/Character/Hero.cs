@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,13 +60,4 @@ public class Hero : MonoBehaviour
             _spriter.flipX = InputVec.x < 0;
         }
     }
-}
-
-public class HeroData
-{
-    public int Id;
-    public int ResourceId;
-    public int Health;
-    public int[] SkillArray;
-    public float MoveSpeed;
 }

@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     private int _enemyLevel;
     private List<int> _levelUpCount;
 
-    public SpawnData[] SpawnDatas;
+    public StageData[] SpawnDatas;
 
     // Start is called before the first frame update
     private void Start()
@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnStart(int id)
     {
-        SpawnData data = SpawnDatas[id];
+        StageData data = SpawnDatas[id];
         _enemyLevel = 0;
         _enemyCount = 0;
         _levelUpCount = new List<int>() { data.EnemyCounts[0] };
@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnEnemy(data));
     }
 
-    private IEnumerator SpawnEnemy(SpawnData data)
+    private IEnumerator SpawnEnemy(StageData data)
     {
         yield return new WaitForSeconds((_levelUpCount[_enemyLevel] - _enemyCount) / (float)_levelUpCount[_enemyLevel]);
 
@@ -48,11 +48,4 @@ public class EnemySpawner : MonoBehaviour
             StartCoroutine(SpawnEnemy(data));
         }
     }
-}
-
-[Serializable]
-public class SpawnData
-{
-    public int[] EnemyIds;
-    public int[] EnemyCounts;
 }
