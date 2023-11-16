@@ -5,23 +5,52 @@ using UnityEngine;
 
 public class PlayerJoystick : MonoBehaviour
 {
-    public static Action<Vector2> OnInputJoystick { get; set; }
+    public static Action<Vector2> OnInput { get; set; }
+    public static Action OnBeginInput { get; set; }
+    public static Action OnEndInput { get; set; }
 
     private VariableJoystick _joystick;
-    private Vector2 _inputVec;
+    private bool _isControl;
 
     private void Awake()
     {
         _joystick = GetComponentInChildren<VariableJoystick>();
-
-        _inputVec = new Vector2();
+        _isControl = false;
+    }
+    private void OnEnable()
+    {
+        _joystick.OnBeginJoystickControl += BeginInput;
+        _joystick.OnEndJoystickControl += EndInput;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        _inputVec.x = _joystick.Horizontal;
-        _inputVec.y = _joystick.Vertical;
-        OnInputJoystick(_inputVec);
+        _joystick.OnBeginJoystickControl -= BeginInput;
+        _joystick.OnEndJoystickControl -= EndInput;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isControl)
+        {
+            OnInput(_joystick.Direction);
+        }
+    }
+
+    private void BeginInput()
+    {
+        ToggleIsControl();
+        OnBeginInput();
+    }
+
+    private void EndInput()
+    {
+        ToggleIsControl();
+        OnEndInput();
+    }
+
+    private void ToggleIsControl()
+    {
+        _isControl = !_isControl;
     }
 }

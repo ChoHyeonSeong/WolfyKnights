@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Spawner.SpawnStart(0);
+        //Spawner.SpawnStart(0);
         Player.Init(DataManager.HeroDict[0]);
     }
 }

@@ -7,6 +7,7 @@ public static class DataManager
     public static Dictionary<int, HeroData> HeroDict { get; private set; } = new Dictionary<int, HeroData>();
     public static Dictionary<int, EnemyData> EnemyDict { get; private set; } = new Dictionary<int, EnemyData>();
     public static Dictionary<int, StageData> StageDict { get; private set; } = new Dictionary<int, StageData>();
+    public static Dictionary<int, BulletData> BulletDict { get; private set; } = new Dictionary<int, BulletData>();
 
     public static void LoadData()
     {
@@ -26,6 +27,12 @@ public static class DataManager
         foreach (var stage in stageTable.Stages)
         {
             StageDict[stage.Id] = stage;
+        }
+
+        var bulletTable = Resources.Load("Datas/ScrObj/BulletTable") as BulletTable;
+        foreach (var bullet in bulletTable.Bullets)
+        {
+            BulletDict[bullet.Id] = bullet;
         }
     }
 }

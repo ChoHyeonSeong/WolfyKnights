@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +7,9 @@ using UnityEngine.EventSystems;
 public class VariableJoystick : Joystick
 {
     public float MoveThreshold { get { return moveThreshold; } set { moveThreshold = Mathf.Abs(value); } }
+
+    public Action OnBeginJoystickControl { get; set; }
+    public Action OnEndJoystickControl { get; set; }
 
     [SerializeField] private float moveThreshold = 1;
     [SerializeField] private JoystickType joystickType = JoystickType.Fixed;
@@ -15,7 +19,7 @@ public class VariableJoystick : Joystick
     public void SetMode(JoystickType joystickType)
     {
         this.joystickType = joystickType;
-        if(joystickType == JoystickType.Fixed)
+        if (joystickType == JoystickType.Fixed)
         {
             background.anchoredPosition = fixedPosition;
             background.gameObject.SetActive(true);
@@ -33,20 +37,22 @@ public class VariableJoystick : Joystick
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        if(joystickType != JoystickType.Fixed)
+        if (joystickType != JoystickType.Fixed)
         {
             background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
             background.gameObject.SetActive(true);
         }
         base.OnPointerDown(eventData);
+        OnBeginJoystickControl();
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        if(joystickType != JoystickType.Fixed)
+        if (joystickType != JoystickType.Fixed)
             background.gameObject.SetActive(false);
 
         base.OnPointerUp(eventData);
+        OnEndJoystickControl();
     }
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
