@@ -15,9 +15,9 @@ MonoBehaviour:
   Enemies:
   - Id: 0
     ResourceId: 0
-    Health: 10
+    Health: 20
     MoveSpeed: 1
   - Id: 1
     ResourceId: 1
-    Health: 20
+    Health: 30
     MoveSpeed: 1.5

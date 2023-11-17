@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField]
+    private Material _hitMaterial;
     private int _enemyCount;
     private int _enemyLevel;
     private List<int> _levelUpCount;

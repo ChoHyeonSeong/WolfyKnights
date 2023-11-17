@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2136775385740452195}
   - component: {fileID: 2136775385740452204}
   - component: {fileID: 5014842164037532153}
+  - component: {fileID: 3862403480521492144}
   m_Layer: 0
   m_Name: 000_Slash_Bullet
   m_TagString: Untagged
@@ -26,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136775385740452205}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2136775385740452195
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -42,7 +43,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136775385740452205}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.35
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -51,7 +52,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -3673,8 +3674,8 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 4
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -3867,7 +3868,6 @@ ParticleSystem:
     colliderQueryMode: 0
     radiusScale: 1
     primitives:
-    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -4895,3 +4895,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f48f878e72581a4d8ff88e9fc6083c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!60 &3862403480521492144
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136775385740452205}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.20426333, y: 3.8372245}
+      - {x: -1.7658376, y: 4.3536124}
+      - {x: -0.186216, y: 2.5258162}
+      - {x: 0.62903976, y: 0.072553635}
+      - {x: 0.87254107, y: -0.9797939}
+      - {x: 0.4183941, y: -4.1747165}
+      - {x: 1.4954119, y: -3.1033788}
+      - {x: 2.2258482, y: -0.8306024}
+      - {x: 2.0260892, y: 0.9168744}
+      - {x: 0.98171294, y: 2.5629327}

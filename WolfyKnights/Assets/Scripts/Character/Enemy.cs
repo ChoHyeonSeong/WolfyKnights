@@ -1,20 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     private float _moveSpeed;
+    private float _knockBackForce = 20;
 
     private Rigidbody2D _rigid;
     private Rigidbody2D _targetRigid;
     private SpriteRenderer _spriter;
     private Animator _animator;
-    private float health;
-    private float maxHealth;
+    private WaitForFixedUpdate _knockBackwait;
+    [SerializeField]
+    private float _health;
+    private float _maxHealth;
+    private WaitForSeconds _hitEffectWait = new WaitForSeconds(0.1f);
 
     private bool _isLive;
+    private bool _isHit;
+    private Material _originMaterial;
+    private Material _hitMaterial;
 
     private void Awake()
     {
@@ -25,10 +33,17 @@ public class Enemy : MonoBehaviour
 
         _targetRigid = GameManager.Instance.Player.Rigid;
     }
+
+    private void Start()
+    {
+        _originMaterial = _spriter.material;
+        _hitMaterial = MaterialManager.GetMaterial(0);
+    }
+
     private void OnEnable()
     {
         _isLive = true;
-        health = maxHealth;
+        _health = _maxHealth;
     }
     private void OnDisable()
     {
@@ -38,13 +53,19 @@ public class Enemy : MonoBehaviour
     public void Init(int id)
     {
         EnemyData data = DataManager.EnemyDict[id];
-        maxHealth = data.Health;
+        _maxHealth = data.Health;
+        _health = _maxHealth;
         _moveSpeed = data.MoveSpeed;
         _animator.runtimeAnimatorController = AnimManager.EnemyAnimCons[data.ResourceId];
     }
 
     private void FixedUpdate()
     {
+        if (_isHit)
+        {
+            _isHit = false;
+            return;
+        }
         if (!_isLive)
             return;
 
@@ -72,14 +93,32 @@ public class Enemy : MonoBehaviour
 
     public void Hit(int damage)
     {
-        health -= damage;
-        if (health > 0)
+        _health -= damage;
+        if (_health > 0)
         {
-
+            Debug.Log("KnockBack");
+            StartCoroutine(KnockBack());
         }
         else
         {
             Dead();
         }
     }
-}
+
+    private IEnumerator KnockBack()
+    {
+        yield return _knockBackwait;
+        _isHit = true;
+        _spriter.material = _hitMaterial;
+        StartCoroutine(ChangeMaterial());
+        Vector2 playerPos = _targetRigid.position;
+        Vector2 dirVec = _rigid.position - playerPos;
+        _rigid.AddForce(dirVec.normalized * _knockBackForce, ForceMode2D.Impulse);
+    }
+
+    private IEnumerator ChangeMaterial()
+    {
+        yield return _hitEffectWait;
+        _spriter.material = _originMaterial;
+    }
+}   

@@ -17,12 +17,13 @@ public class GameManager : MonoBehaviour
         Pool = FindAnyObjectByType<PoolManager>();
         AnimManager.LoadAnimCon();
         DataManager.LoadData();
+        MaterialManager.LoadMaterial();
         Pool.LoadPool();
     }
 
     private void Start()
     {
-        //Spawner.SpawnStart(0);
+        Spawner.SpawnStart(0);
         Player.Init(DataManager.HeroDict[0]);
     }
 }
